@@ -267,16 +267,16 @@ void keyOperations(){
     if (keyStates[GLUT_KEY_LEFT]){
 		x -= 2;
 		int x1Quadrant = (int)((x - 16.0 *cos(360 * M_PI / 180.0)) / squareSize);
-		if (!bitmap.at(x1Quadrant).at((int)y/squareSize)){
-			xIncrement -= 2 / squareSize;
+        if (!bitmap.at(x1Quadrant).at((int)y/squareSize)){
+            xIncrement -= 2 / squareSize;
 			rotation = 2;
 		}
 	}
     if (keyStates[GLUT_KEY_RIGHT]){
 		x += 2;
 		int x2Quadrant = (int)((x + 16.0 *cos(360 * M_PI / 180.0)) / squareSize);
-		if (!bitmap.at(x2Quadrant).at((int)y / squareSize)){
-			xIncrement += 2 / squareSize;
+        if (!bitmap.at(x2Quadrant).at((int)y / squareSize)){
+            xIncrement += 2 / squareSize;
 			rotation = 0;
 		}
 	}
@@ -429,8 +429,8 @@ void display(){
 	if (replay){
 		if (!over){
 			drawLaberynth();
-			drawFood((1.5 + xIncrement) * squareSize, (1.5 + yIncrement) * squareSize);
-			drawPacman(1.5 + xIncrement, 1.5 + yIncrement, rotation);
+            drawFood((1.5 + xIncrement) * squareSize, (1.5 + yIncrement) * squareSize);
+            drawPacman(1.5 + xIncrement, 1.5 + yIncrement, rotation);
 			updateMonster(monster1, 1);
 			updateMonster(monster2, 2);
 			updateMonster(monster3, 3);
