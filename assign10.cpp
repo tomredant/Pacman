@@ -409,7 +409,7 @@ void welcomeScreen(){
 	while (*message)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *message++);
     message = "To control Pacman use the arrow keys.";
-	glRasterPos2f(50, 400);
+    glRasterPos2f(204, 400);
 	while (*message)
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *message++);
 	message = "To start or restart the game, press the space key.";
