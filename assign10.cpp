@@ -230,6 +230,17 @@ void keyUp(unsigned char key, int x, int y){
 	keyStates[key] = false;
 }
 
+//Method to set the pressed key
+void specialKeyPressed(int key, int x, int y){
+    keyStates[key] = true;
+}
+
+//Method to set the pressed key
+void specialKeyUp(int key, int x, int y){
+    keyStates[key] = false;
+}
+
+
 //Method to reset all the variable necessaries to start the game again
 void resetGame(){
 	over = false;
@@ -253,7 +264,7 @@ void keyOperations(){
 	float  x = (1.5 + xIncrement) * squareSize;
 	float y = (1.5 + yIncrement) * squareSize;
 	//update according to keys pressed
-	if (keyStates['a']){
+    if (keyStates[GLUT_KEY_LEFT]){
 		x -= 2;
 		int x1Quadrant = (int)((x - 16.0 *cos(360 * M_PI / 180.0)) / squareSize);
 		if (!bitmap.at(x1Quadrant).at((int)y/squareSize)){
@@ -261,7 +272,7 @@ void keyOperations(){
 			rotation = 2;
 		}
 	}
-	if (keyStates['d']){
+    if (keyStates[GLUT_KEY_RIGHT]){
 		x += 2;
 		int x2Quadrant = (int)((x + 16.0 *cos(360 * M_PI / 180.0)) / squareSize);
 		if (!bitmap.at(x2Quadrant).at((int)y / squareSize)){
@@ -269,7 +280,7 @@ void keyOperations(){
 			rotation = 0;
 		}
 	}
-	if (keyStates['w']){
+    if (keyStates[GLUT_KEY_UP]){
 		y -= 2;
 		int y1Quadrant = (int)((y - 16.0 *cos(360 * M_PI / 180.0)) / squareSize);
 		if (!bitmap.at((int)x/squareSize).at(y1Quadrant)){
@@ -277,7 +288,7 @@ void keyOperations(){
 			rotation = 3;
 		}
 	}
-	if (keyStates['s']){
+    if (keyStates[GLUT_KEY_DOWN]){
 		y += 2;
 		int y2Quadrant = (int)((y + 16.0 *cos(360 * M_PI / 180.0)) / squareSize);
 		if (!bitmap.at((int)x / squareSize).at(y2Quadrant)){
@@ -285,8 +296,8 @@ void keyOperations(){
 			rotation = 1;
 		}
 	}
-	if (keyStates[' ']){
-		if (!replay && over){
+    if (keyStates[' ']){
+        if (!replay && over){
 			resetGame();
 			replay = true;
 		}
@@ -322,7 +333,7 @@ void gameOver(){
 	}
 	if (points == 106){
 		over = true;
-	}
+    }
 }
 
 //Method to display the results of the game at the ends
@@ -331,7 +342,7 @@ void resultsDisplay(){
 		//Won
 		char* message = "*************************************";
 		glRasterPos2f(170, 250);
-		while (*message)
+        while (*message)
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *message++);
 		message = "CONGRATULATIONS, YOU WON! ";
 		glColor3f(1, 1, 1);
@@ -397,7 +408,7 @@ void welcomeScreen(){
 	glRasterPos2f(150, 300);
 	while (*message)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *message++);
-	message = "To control Pacman use A to go right, D to go left, W to go up and S to go down.";
+    message = "To control Pacman use the arrow keys.";
 	glRasterPos2f(50, 400);
 	while (*message)
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *message++);
@@ -463,9 +474,10 @@ int main(int argc, char** argv){
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutIdleFunc(display);
-	glutKeyboardFunc(keyPressed);
-	glutKeyboardUpFunc(keyUp);
-
+    glutKeyboardFunc(keyPressed);
+    glutKeyboardUpFunc(keyUp);
+    glutSpecialFunc(specialKeyPressed);
+    glutSpecialUpFunc(specialKeyUp);
 	//run the game
 	init();
 	glutMainLoop();
